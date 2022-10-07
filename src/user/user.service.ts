@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { hashPassword } from '../utils/helpers';
 import { User } from '../utils/typeorm';
 import { CreateUserParams, FindUserParams } from '../utils/types/queries';
 import { UserFoundException } from './exceptions/UserFoundException';
@@ -19,6 +20,7 @@ export class UserService implements IUserService {
   async createUser(params: CreateUserParams) {
     const existingUser = await this.findUser({ username: params.username });
     if (existingUser) throw new UserFoundException();
+    params.password = await hashPassword(params.password);
     const newUser = this.userRepository.create(params);
     return this.userRepository.save(newUser);
   }
