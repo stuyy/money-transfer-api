@@ -30,6 +30,7 @@
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "connect-typeorm": "^2.0.0",
     "express-session": "^1.17.3",
     "mysql2": "^2.3.3",
     "passport": "^0.6.0",

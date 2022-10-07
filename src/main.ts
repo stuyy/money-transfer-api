@@ -3,6 +3,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as passport from 'passport';
 import * as session from 'express-session';
+import { DataSource } from 'typeorm';
+import { Session } from './utils/typeorm';
+import { TypeormStore } from 'connect-typeorm';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,6 +13,9 @@ async function bootstrap() {
   app.enableCors({ origin: ['http://localhost:3000'], credentials: true });
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
+
+  const dataSource = app.get(DataSource);
+  const sessionRepository = dataSource.getRepository(Session);
 
   app.use(
     session({
@@ -20,6 +26,7 @@ async function bootstrap() {
       cookie: {
         maxAge: 3600000 * 24,
       },
+      store: new TypeormStore().connect(sessionRepository),
     }),
   );
 
