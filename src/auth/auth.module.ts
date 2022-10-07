@@ -3,6 +3,7 @@ import { UserModule } from '../user/user.module';
 import { Services } from '../utils/constants';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { LocalStrategy } from './utils/LocalStrategy';
 
 @Module({
   imports: [UserModule],
@@ -12,6 +13,7 @@ import { AuthService } from './auth.service';
       provide: Services.AUTH,
       useClass: AuthService,
     },
+    LocalStrategy,
   ],
 })
 export class AuthModule {}

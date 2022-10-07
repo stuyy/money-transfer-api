@@ -9,3 +9,12 @@ export type CreateUserParams = {
   username: string;
   password: string;
 };
+
+export type UserCredentialsParams = {
+  username: string;
+  password: string;
+};
+
+export type FindUserOptions = {
+  selectPassword?: boolean;
+};
