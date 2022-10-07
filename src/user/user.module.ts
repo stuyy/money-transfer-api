@@ -14,5 +14,11 @@ import { UserService } from './user.service';
       useClass: UserService,
     },
   ],
+  exports: [
+    {
+      provide: Services.USERS,
+      useClass: UserService,
+    },
+  ],
 })
 export class UserModule {}
